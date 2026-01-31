@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une petite question...</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        #container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 400px;
+        }
+
+        h1 {
+            color: #882539;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .img-container img {
+            width: 100%; /* L'image prend toute la largeur du container */
+            max-width: 300px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        #btnOui {
+            background-color: #cb6970;
+            color: white;
+            
+        }
+
+        #btnNon {
+            background-color: #882539;
+            color: white;
+	    
+            white-space: nowrap;
+        }
+
+        #celebration {
+            display: none;
+        }
+
+        .heart {
+            color: #882539;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div class="img-container" id="main-img">
+            <img src="perso1.png" alt="Toi avec une pancarte">
+        </div>
+
+        <div id="quiz">
+            <h1 id="question">Veux-tu être mon Valentin ? <span class="heart"></span></h1>
+            
+            <div class="buttons">
+                <button id="btnOui" onclick="celebrer()">OUI !</button>
+                <button id="btnNon" onclick="refus()">Non...</button>
+            </div>
+        </div>
+
+        <div id="celebration">
+            <h1>Youpiiii ! Je t’aime</h1>
+            <div class="img-container">
+                <img src="perso2.png" alt="Câlin">
+            </div>
+            <p style="color: #882539; font-weight: bold; font-size: 1rem;">Rendez-vous le 14 février ! ✨</p>
+        </div>
+    </div>
+
+    <script>
+        let sizeOui = 1;
+        let sizeNon = 1;
+        let messages = [
+            "Tu es sûr ?",
+            "Vraiment ?",
+            "Allez...",
+            "DIS OUI !",
+            "DIS OUI !"
+        ];
+        let msgIndex = 0;
+
+        function refus() {
+            // Le bouton OUI grossit doucement
+            sizeOui += 0.1;
+            document.getElementById('btnOui').style.transform = `scale(${sizeOui})`;
+            
+            // Le bouton NON rétrécit (on enlève 0.1 à chaque fois)
+            sizeNon -= 0.1;
+            const btnNon = document.getElementById('btnNon');
+            
+            // On s'assure qu'il ne devienne pas minuscule au point de disparaître trop tôt
+            if (sizeNon < 0.5) {
+                btnNon.style.display = 'none';
+            } else {
+                btnNon.style.transform = `scale(${sizeNon})`;
+            }
+
+            // Changer le texte
+            if (msgIndex < messages.length) {
+                btnNon.innerText = messages[msgIndex];
+                msgIndex++;
+            }
+        }
+
+
+        function celebrer() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('main-img').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            document.body.style.backgroundColor = '#f8b5b3';
+            
+            console.log("FÉLICITATIONS ! ❤️");
+        }
+    </script>
+
+</body>
+</html>
